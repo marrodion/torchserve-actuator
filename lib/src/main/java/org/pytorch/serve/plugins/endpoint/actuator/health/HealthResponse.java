@@ -8,7 +8,7 @@ public class HealthResponse {
 
   public HealthResponse(HealthStatus status, Map<String, ComponentDetails> components) {
     this.status = status;
-    this.components = components;
+    this.components = Map.copyOf(components);
   }
 
   public HealthStatus getStatus() {
@@ -16,6 +16,6 @@ public class HealthResponse {
   }
 
   public Map<String, ComponentDetails> getDetails() {
-    return components;
+    return Map.copyOf(components);
   }
 }

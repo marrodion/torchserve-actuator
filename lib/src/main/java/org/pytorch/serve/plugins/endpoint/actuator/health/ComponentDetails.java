@@ -17,7 +17,7 @@ public class ComponentDetails {
         modelDetails.getWorkers().stream().anyMatch(WorkerDetails::isRunning)
             ? HealthStatus.UP
             : HealthStatus.DOWN;
-    return new ComponentDetails(status, new ModelDetails(model));
+    return new ComponentDetails(status, modelDetails);
   }
 
   public HealthStatus getStatus() {

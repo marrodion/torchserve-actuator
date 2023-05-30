@@ -30,6 +30,6 @@ public class ModelDetails {
   }
 
   public List<WorkerDetails> getWorkers() {
-    return workers;
+    return List.copyOf(workers);
   }
 }

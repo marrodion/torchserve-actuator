@@ -28,9 +28,4 @@ public class HealthResponseTest {
     var json = new GsonBuilder().create().toJson(healthResponse);
     Assert.assertNotNull(json);
   }
-
-  @Test
-  public void testFail() {
-    Assert.assertTrue(false);
-  }
 }

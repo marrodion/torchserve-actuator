@@ -13,11 +13,5 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
-      - name: Code Quality checks
-        run: ./gradlew check
-
-      - name: Running unit tests
-        run: ./gradlew check
-
-      - name: Build JAR
+      - name: Build project
         run: ./gradlew build

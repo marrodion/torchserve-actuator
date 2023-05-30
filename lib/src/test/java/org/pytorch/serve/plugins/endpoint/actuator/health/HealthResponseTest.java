@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import org.pytorch.serve.servingsdk.Model;
 import org.pytorch.serve.servingsdk.Worker;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -25,6 +26,11 @@ public class HealthResponseTest {
     HealthResponse healthResponse =
         new HealthResponse(healthStatus, Map.of("model", ComponentDetails.fromModel(model)));
     var json = new GsonBuilder().create().toJson(healthResponse);
-    assert json != null;
+    Assert.assertNotNull(json);
+  }
+
+  @Test
+  public void testFail() {
+    Assert.assertTrue(false);
   }
 }

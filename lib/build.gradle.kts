@@ -11,6 +11,7 @@ plugins {
     `java-library`
     id("com.diffplug.spotless") version "6.19.0"
     id("com.github.spotbugs") version "5.0.14"
+    checkstyle
 }
 
 repositories {
@@ -46,4 +47,8 @@ spotless {
         googleJavaFormat()
         formatAnnotations()
     }
+}
+
+checkstyle {
+    toolVersion = "10.12.0"
 }

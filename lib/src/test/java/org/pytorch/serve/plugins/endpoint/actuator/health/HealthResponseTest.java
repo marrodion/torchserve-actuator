@@ -1,49 +1,28 @@
 package org.pytorch.serve.plugins.endpoint.actuator.health;
 
+import static org.mockito.Mockito.*;
+
 import com.google.gson.GsonBuilder;
+import java.util.List;
+import java.util.Map;
 import org.pytorch.serve.servingsdk.Model;
 import org.pytorch.serve.servingsdk.Worker;
 import org.testng.annotations.*;
 
-import java.util.List;
-import java.util.Map;
-
 public class HealthResponseTest {
-    @Test
-    public void testGetStatus() {
-        HealthStatus healthStatus = HealthStatus.UP;
-        HealthResponse healthResponse = new HealthResponse(healthStatus, Map.of("model", new ModelDetails(new Model() {
-            @Override
-            public String getModelName() {
-                return "test";
-            }
+  Model model = mock(Model.class);
 
-            @Override
-            public String getModelUrl() {
-                return "predictions/test";
-            }
+  @BeforeMethod
+  public void setUp() {
+    when(model.getModelWorkers()).thenReturn(List.of(mock(Worker.class)));
+  }
 
-            @Override
-            public String getModelHandler() {
-                return "handler.py";
-            }
-
-            @Override
-            public List<Worker> getModelWorkers() {
-                return List.of(new Worker() {
-                    @Override
-                    public boolean isRunning() {
-                        return true;
-                    }
-
-                    @Override
-                    public long getWorkerMemory() {
-                        return 100;
-                    }
-                });
-            }
-        })));
-        var json = new GsonBuilder().create().toJson(healthResponse);
-        assert json != null;
-    }
+  @Test
+  public void testJsonSerializable() {
+    HealthStatus healthStatus = HealthStatus.UP;
+    HealthResponse healthResponse =
+        new HealthResponse(healthStatus, Map.of("model", ComponentDetails.fromModel(model)));
+    var json = new GsonBuilder().create().toJson(healthResponse);
+    assert json != null;
+  }
 }

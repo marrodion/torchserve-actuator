@@ -2,28 +2,29 @@ package org.pytorch.serve.plugins.endpoint.actuator.health;
 
 import org.pytorch.serve.servingsdk.Model;
 
-import java.util.Map;
-
 public class ComponentDetails {
-    private final HealthStatus status;
-    private final ModelDetails details;
+  private final HealthStatus status;
+  private final ModelDetails details;
 
-    private ComponentDetails(HealthStatus status, ModelDetails details) {
-        this.status = status;
-        this.details = details;
-    }
+  private ComponentDetails(HealthStatus status, ModelDetails details) {
+    this.status = status;
+    this.details = details;
+  }
 
-    public static ComponentDetails fromModel(Model model) {
-        var modelDetails = new ModelDetails(model);
-        var status = modelDetails.getWorkers().stream().anyMatch(WorkerDetails::isRunning) ? HealthStatus.UP : HealthStatus.DOWN;
-        return new ComponentDetails(status, new ModelDetails(model));
-    }
+  public static ComponentDetails fromModel(Model model) {
+    var modelDetails = new ModelDetails(model);
+    var status =
+        modelDetails.getWorkers().stream().anyMatch(WorkerDetails::isRunning)
+            ? HealthStatus.UP
+            : HealthStatus.DOWN;
+    return new ComponentDetails(status, new ModelDetails(model));
+  }
 
-    public HealthStatus getStatus() {
-        return status;
-    }
+  public HealthStatus getStatus() {
+    return status;
+  }
 
-    public ModelDetails getDetails() {
-        return details;
-    }
+  public ModelDetails getDetails() {
+    return details;
+  }
 }

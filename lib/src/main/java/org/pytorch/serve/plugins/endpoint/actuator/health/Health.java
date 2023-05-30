@@ -1,21 +1,23 @@
 package org.pytorch.serve.plugins.endpoint.actuator.health;
 
-import org.pytorch.serve.servingsdk.Context;
-import org.pytorch.serve.servingsdk.Model;
-import org.pytorch.serve.servingsdk.Worker;
-
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.pytorch.serve.servingsdk.Context;
+import org.pytorch.serve.servingsdk.Model;
 
 public class Health {
 
-    public HealthResponse getHealthResponse(Context ctx) {
-        var modelDetails = ctx.getModels().entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, entry -> new ModelDetails(entry.getValue())));
-        return new HealthResponse(getHealth(modelDetails), modelDetails);
-    }
+  public HealthResponse getHealthResponse(Context ctx) {
+    var components =
+        ctx.getModels().values().stream()
+            .collect(Collectors.toMap(Model::getModelName, ComponentDetails::fromModel));
+    return new HealthResponse(getHealth(components), components);
+  }
 
-    private HealthStatus getHealth(Map<String, ModelDetails> modelsDetails) {
-        var anyLoaded = modelsDetails.values().stream().anyMatch(model -> model.getWorkers().stream().anyMatch(WorkerDetails::isRunning));
-        return anyLoaded ? HealthStatus.UP : HealthStatus.DOWN;
-    }
+  private HealthStatus getHealth(Map<String, ComponentDetails> components) {
+    var anyLoaded =
+        components.values().stream()
+            .anyMatch(componentDetails -> componentDetails.getStatus() == HealthStatus.UP);
+    return anyLoaded ? HealthStatus.UP : HealthStatus.DOWN;
+  }
 }

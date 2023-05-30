@@ -1,23 +1,21 @@
 package org.pytorch.serve.plugins.endpoint.actuator.health;
 
-import org.pytorch.serve.servingsdk.Model;
-
 import java.util.Map;
 
 public class HealthResponse {
-    private final HealthStatus status;
-    private final Map<String, ModelDetails> details;
+  private final HealthStatus status;
+  private final Map<String, ComponentDetails> components;
 
-    public HealthResponse(HealthStatus status, Map<String, ModelDetails> details) {
-        this.status = status;
-        this.details = details;
-    }
+  public HealthResponse(HealthStatus status, Map<String, ComponentDetails> components) {
+    this.status = status;
+    this.components = components;
+  }
 
-    public HealthStatus getStatus() {
-        return status;
-    }
+  public HealthStatus getStatus() {
+    return status;
+  }
 
-    public Map<String, ModelDetails> getDetails() {
-        return details;
-    }
+  public Map<String, ComponentDetails> getDetails() {
+    return components;
+  }
 }

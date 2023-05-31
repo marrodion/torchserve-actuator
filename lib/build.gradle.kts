@@ -18,6 +18,8 @@ plugins {
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+    // TorchServe SDK is not yet available in Maven Central.
+    @Suppress("DEPRECATION")
     jcenter()
 }
 

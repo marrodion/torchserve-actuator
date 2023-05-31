@@ -13,6 +13,7 @@ plugins {
     id("com.github.spotbugs") version "5.0.14"
     checkstyle
     pmd
+    jacoco
 }
 
 repositories {
@@ -40,6 +41,7 @@ java {
 tasks.named<Test>("test") {
     // Use TestNG for unit tests.
     useTestNG()
+    finalizedBy(tasks.jacocoTestReport)
 }
 
 spotless {

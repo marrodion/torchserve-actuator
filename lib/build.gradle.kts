@@ -12,6 +12,7 @@ plugins {
     id("com.diffplug.spotless") version "6.19.0"
     id("com.github.spotbugs") version "5.0.14"
     checkstyle
+    pmd
 }
 
 repositories {
@@ -51,4 +52,10 @@ spotless {
 
 checkstyle {
     toolVersion = "10.12.0"
+}
+
+pmd {
+    isConsoleOutput = true
+    toolVersion = "6.55.0"
+    ruleSetFiles = files("${rootProject.projectDir}/config/pmd.xml")
 }

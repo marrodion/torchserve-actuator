@@ -13,4 +13,4 @@ plugins {
 }
 
 rootProject.name = "torchserve-actuator"
-include("lib")
+include("torchserve-actuator")

@@ -6,6 +6,8 @@
  * User Manual available at https://docs.gradle.org/8.1.1/userguide/building_java_projects.html
  */
 
+version = "0.0.1"
+
 plugins {
     // Apply the java-library plugin for API and implementation separation.
     `java-library`
@@ -14,6 +16,13 @@ plugins {
     checkstyle
     pmd
     jacoco
+}
+
+tasks.jar {
+    manifest {
+        attributes(mapOf("Implementation-Title" to project.name,
+                "Implementation-Version" to project.version))
+    }
 }
 
 repositories {
@@ -38,7 +47,7 @@ java {
     }
 }
 
-tasks.named<Test>("test") {
+tasks.test {
     // Use TestNG for unit tests.
     useTestNG()
     finalizedBy(tasks.jacocoTestReport)

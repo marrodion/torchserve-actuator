@@ -6,17 +6,30 @@
  * User Manual available at https://docs.gradle.org/8.1.1/userguide/building_java_projects.html
  */
 
+version = "0.0.1"
+
 plugins {
     // Apply the java-library plugin for API and implementation separation.
     `java-library`
     id("com.diffplug.spotless") version "6.19.0"
     id("com.github.spotbugs") version "5.0.14"
     checkstyle
+    pmd
+    jacoco
+}
+
+tasks.jar {
+    manifest {
+        attributes(mapOf("Implementation-Title" to project.name,
+                "Implementation-Version" to project.version))
+    }
 }
 
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+    // TorchServe SDK is not yet available in Maven Central.
+    @Suppress("DEPRECATION")
     jcenter()
 }
 
@@ -34,9 +47,10 @@ java {
     }
 }
 
-tasks.named<Test>("test") {
+tasks.test {
     // Use TestNG for unit tests.
     useTestNG()
+    finalizedBy(tasks.jacocoTestReport)
 }
 
 spotless {
@@ -51,4 +65,10 @@ spotless {
 
 checkstyle {
     toolVersion = "10.12.0"
+}
+
+pmd {
+    isConsoleOutput = true
+    toolVersion = "6.55.0"
+    ruleSetFiles = files("${rootProject.projectDir}/config/pmd.xml")
 }

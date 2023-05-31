@@ -2,7 +2,7 @@ package org.pytorch.serve.plugins.endpoint.actuator.health;
 
 import org.pytorch.serve.servingsdk.Model;
 
-public class ComponentDetails {
+public final class ComponentDetails {
   private final HealthStatus status;
   private final ModelDetails details;
 

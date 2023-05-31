@@ -23,7 +23,7 @@ public class ActuatorRestEndpoint extends ModelServerEndpoint {
   @Override
   public void doGet(Request req, Response rsp, Context ctx) throws IOException {
     switch (req.getRequestURI()) {
-      case "/actuator" -> doGetActuator(req, rsp, ctx);
+      case "/actuator" -> doGetActuator(rsp);
       case "/actuator/health" -> getEndpointByName("health").doGet(req, rsp, ctx);
       default -> {
         rsp.setStatus(404);
@@ -35,7 +35,7 @@ public class ActuatorRestEndpoint extends ModelServerEndpoint {
     }
   }
 
-  private void doGetActuator(Request req, Response rsp, Context ctx) throws IOException {
+  private void doGetActuator(Response rsp) throws IOException {
     rsp.setStatus(200);
     rsp.getOutputStream().write("Actuator".getBytes(StandardCharsets.UTF_8));
   }

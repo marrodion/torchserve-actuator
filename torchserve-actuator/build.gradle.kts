@@ -16,6 +16,7 @@ plugins {
     checkstyle
     pmd
     jacoco
+    `jvm-test-suite`
 }
 
 tasks.jar {
@@ -47,10 +48,19 @@ java {
     }
 }
 
-tasks.test {
-    // Use TestNG for unit tests.
-    useTestNG()
-    finalizedBy(tasks.jacocoTestReport)
+testing {
+    suites {
+        val test by getting(JvmTestSuite::class) {
+            useTestNG()
+            targets {
+                all {
+                    testTask.configure {
+                        finalizedBy(tasks.jacocoTestReport)
+                    }
+                }
+            }
+        }
+    }
 }
 
 spotless {

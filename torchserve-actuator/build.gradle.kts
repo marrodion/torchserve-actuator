@@ -60,6 +60,25 @@ testing {
                 }
             }
         }
+
+        register<JvmTestSuite>("integrationTest") {
+            useTestNG()
+            dependencies {
+                compileOnly("org.slf4j:slf4j-api:1.7.36")
+                implementation("ch.qos.logback:logback-classic:1.3.5")
+                implementation("io.rest-assured:rest-assured:5.3.1")
+                implementation("org.testcontainers:testcontainers:1.18.3")
+            }
+            testType.set(TestSuiteType.INTEGRATION_TEST)
+            targets {
+                all {
+                    testTask.configure {
+                        environment("ACTUATOR_JAR", tasks.jar.get().archiveFile.get().asFile.absolutePath)
+                        dependsOn(tasks.jar)
+                    }
+                }
+            }
+        }
     }
 }
 

@@ -65,6 +65,7 @@
         <exclude name="CollapsibleIfStatements"/>
         <exclude name="AvoidDeeplyNestedIfStmts"/>
         <exclude name="AvoidThrowingNullPointerException"/>
+        <exclude name="AvoidThrowingRawExceptionTypes"/>
         <exclude name="AvoidCatchingGenericException"/>
         <exclude name="CollapsibleIfStatements"/>
         <exclude name="AvoidDeeplyNestedIfStmts"/>

@@ -16,3 +16,6 @@ jobs:
 
       - name: Build project
         run: ./gradlew build
+
+      - name: Integration tests
+        run: ./gradlew integrationTest

@@ -32,7 +32,7 @@ public abstract class SetupTestSuite {
             System.getenv("ACTUATOR_JAR"),
             "/home/model-server/plugins/actuator.jar",
             BindMode.READ_ONLY)
-        .waitingFor(Wait.forLogMessage(".*WORKER_MODEL_LOADED.*\\n", 6));
+        .waitingFor(Wait.forLogMessage(".*WORKER_MODEL_LOADED.*\\n", 1));
   }
 
   static URL getHost() {

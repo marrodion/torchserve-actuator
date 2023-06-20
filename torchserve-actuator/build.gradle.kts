@@ -24,6 +24,7 @@ plugins {
 tasks.jar {
     manifest {
         attributes(mapOf("Implementation-Title" to project.name,
+                "Implementation-Vendor" to project.group,
                 "Implementation-Version" to project.version))
     }
 }
@@ -38,6 +39,7 @@ repositories {
 
 dependencies {
     implementation("org.pytorch:torchserve-plugins-sdk:0.0.4")
+
     // https://mvnrepository.com/artifact/org.testng/testng
     testImplementation("org.testng:testng:7.8.0")
     testImplementation("org.mockito:mockito-core:4.+")

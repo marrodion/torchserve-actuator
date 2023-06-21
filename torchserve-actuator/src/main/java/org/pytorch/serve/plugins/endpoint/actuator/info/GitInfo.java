@@ -21,12 +21,12 @@ public class GitInfo {
     CommitInfo commitInfo;
     String branch = "";
     try (Repository repository =
-        new FileRepositoryBuilder().readEnvironment().findGitDir().build()) {
+        new FileRepositoryBuilder().readEnvironment().findGitDir().setMustExist(false).build()) {
       branch = repository.getBranch();
       ObjectId sha = repository.resolve(HEAD);
       RevCommit commit = repository.parseCommit(sha);
       commitInfo = new CommitInfo(commit);
-    } catch (IOException e) {
+    } catch (IllegalArgumentException | IOException e) {
       commitInfo = new CommitInfo();
     }
     this.branch = branch;

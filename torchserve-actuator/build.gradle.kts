@@ -19,6 +19,7 @@ plugins {
     pmd
     jacoco
     `jvm-test-suite`
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 tasks.jar {
@@ -26,6 +27,12 @@ tasks.jar {
         attributes(mapOf("Implementation-Title" to project.name,
                 "Implementation-Vendor" to project.group,
                 "Implementation-Version" to project.version))
+    }
+}
+
+tasks.shadowJar {
+    dependencies {
+        exclude(dependency("org.pytorch:torchserve-plugins-sdk:0.0.4"))
     }
 }
 
@@ -76,8 +83,8 @@ testing {
             targets {
                 all {
                     testTask.configure {
-                        environment("ACTUATOR_JAR", tasks.jar.get().archiveFile.get().asFile.absolutePath)
-                        dependsOn(tasks.jar)
+                        environment("ACTUATOR_JAR", tasks.shadowJar.get().archiveFile.get().asFile.absolutePath)
+                        dependsOn(tasks.shadowJar)
                     }
                 }
             }

@@ -1,13 +1,12 @@
 package org.pytorch.serve.plugins.endpoint.actuator.info;
 
+import static org.eclipse.jgit.lib.Constants.HEAD;
+
+import java.io.IOException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
-
-import java.io.IOException;
-
-import static org.eclipse.jgit.lib.Constants.HEAD;
 
 public class GitInfo {
   private final String branch;
@@ -22,7 +21,7 @@ public class GitInfo {
     CommitInfo commitInfo;
     String branch = "";
     try (Repository repository =
-             new FileRepositoryBuilder().readEnvironment().findGitDir().build()) {
+        new FileRepositoryBuilder().readEnvironment().findGitDir().build()) {
       branch = repository.getBranch();
       ObjectId sha = repository.resolve(HEAD);
       RevCommit commit = repository.parseCommit(sha);

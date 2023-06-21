@@ -1,7 +1,5 @@
 package org.pytorch.serve.plugins.endpoint.actuator.info;
 
-import org.eclipse.jgit.lib.Repository;
-
 import java.util.Objects;
 import java.util.Optional;
 

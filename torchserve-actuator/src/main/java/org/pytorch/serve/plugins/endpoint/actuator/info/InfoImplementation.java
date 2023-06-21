@@ -1,6 +1,6 @@
 package org.pytorch.serve.plugins.endpoint.actuator.info;
 
-public class InfoImplementation {
+public final class InfoImplementation {
   private static final InfoResponse info;
 
   static {

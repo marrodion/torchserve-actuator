@@ -39,8 +39,7 @@ repositories {
 
 dependencies {
     implementation("org.pytorch:torchserve-plugins-sdk:0.0.4")
-
-    // https://mvnrepository.com/artifact/org.testng/testng
+    implementation("org.eclipse.jgit:org.eclipse.jgit:6.6.0.202305301015-r")
     testImplementation("org.testng:testng:7.8.0")
     testImplementation("org.mockito:mockito-core:4.+")
 }

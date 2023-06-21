@@ -19,12 +19,20 @@ plugins {
     pmd
     jacoco
     `jvm-test-suite`
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 tasks.jar {
     manifest {
         attributes(mapOf("Implementation-Title" to project.name,
+                "Implementation-Vendor" to project.group,
                 "Implementation-Version" to project.version))
+    }
+}
+
+tasks.shadowJar {
+    dependencies {
+        exclude(dependency("org.pytorch:torchserve-plugins-sdk:0.0.4"))
     }
 }
 
@@ -38,7 +46,7 @@ repositories {
 
 dependencies {
     implementation("org.pytorch:torchserve-plugins-sdk:0.0.4")
-    // https://mvnrepository.com/artifact/org.testng/testng
+    implementation("org.eclipse.jgit:org.eclipse.jgit:6.6.0.202305301015-r")
     testImplementation("org.testng:testng:7.8.0")
     testImplementation("org.mockito:mockito-core:4.+")
 }
@@ -75,8 +83,8 @@ testing {
             targets {
                 all {
                     testTask.configure {
-                        environment("ACTUATOR_JAR", tasks.jar.get().archiveFile.get().asFile.absolutePath)
-                        dependsOn(tasks.jar)
+                        environment("ACTUATOR_JAR", tasks.shadowJar.get().archiveFile.get().asFile.absolutePath)
+                        dependsOn(tasks.shadowJar)
                     }
                 }
             }

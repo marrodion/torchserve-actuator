@@ -1,17 +1,17 @@
 package org.pytorch.serve.plugins.endpoint.actuator.info;
 
-public class InfoSingleton {
-  private static final InfoSingleton INSTANCE = new InfoSingleton();
+public class InfoImplementation {
+  private static final InfoResponse info;
 
-  private final BuildInfoProvider build;
-  private final GitInfoProvider git;
-
-  private InfoSingleton() {
-    build = BuildInfoProvider.getInfoProvider();
-    git = GitInfoProvider.getGitInfoProvider();
+  static {
+    GitInfo gitInfo = new GitInfo();
+    BuildInfo buildInfo = new BuildInfo();
+    info = new InfoResponse(gitInfo, buildInfo);
   }
 
-  public static InfoSingleton getInstance() {
-    return INSTANCE;
+  private InfoImplementation() {}
+
+  public static InfoResponse getInfo() {
+    return info;
   }
 }

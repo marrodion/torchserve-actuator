@@ -26,10 +26,7 @@ plugins {
 publishing {
     publications {
         create<MavenPublication>("torchserve-actuator") {
-            artifact(tasks.shadowJar) {
-                classifier = ""
-            }
-            project.shadow.component(this)
+            from(components["java"])
         }
     }
     repositories {

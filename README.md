@@ -1,6 +1,6 @@
 # TorchServe Actuator plugin
 
-The TorchServe Plugin is a lightweight Java plugin that exposes Spring Actuator-like endpoints to retrieve basic
+The TorchServe Actuator plugin exposes Spring Actuator-like endpoints to retrieve basic
 information about running TorchServe instance.
 Allows monitoring the server using Spring Boot Admin.
 

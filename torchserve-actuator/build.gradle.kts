@@ -20,6 +20,28 @@ plugins {
     jacoco
     `jvm-test-suite`
     id("com.github.johnrengelman.shadow") version "8.1.1"
+    `maven-publish`
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("torchserve-actuator") {
+            artifact(tasks.shadowJar) {
+                classifier = ""
+            }
+            project.shadow.component(this)
+        }
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/marrodion/torchserve-actuator")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
 }
 
 tasks.jar {

@@ -58,13 +58,10 @@ tasks.shadowJar {
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
-    // TorchServe SDK is not yet available in Maven Central.
-    @Suppress("DEPRECATION")
-    jcenter()
 }
 
 dependencies {
-    implementation("org.pytorch:torchserve-plugins-sdk:0.0.4")
+    implementation("org.pytorch:torchserve-plugins-sdk:0.0.5")
     implementation("org.eclipse.jgit:org.eclipse.jgit:6.6.0.202305301015-r")
     testImplementation("org.testng:testng:7.8.0")
     testImplementation("org.mockito:mockito-core:4.+")

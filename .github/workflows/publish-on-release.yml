@@ -1,5 +1,7 @@
 name: Publish artifacts to GitHub repo
-on: release
+on:
+  release:
+    types: [created]
 jobs:
   publish:
     runs-on: ubuntu-latest

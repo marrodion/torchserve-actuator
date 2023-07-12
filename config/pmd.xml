@@ -15,6 +15,7 @@
         <exclude name="JUnit4TestShouldUseBeforeAnnotation"/>
         <exclude name="JUnit4TestShouldUseTestAnnotation"/>
         <exclude name="JUnitUseExpected"/>
+        <exclude name="JUnitTestContainsTooManyAsserts"/>
         <exclude name="AvoidUsingHardCodedIP"/>
         <exclude name="ConstantsInInterface"/>
         <exclude name="AvoidReassigningParameters"/>

@@ -25,26 +25,20 @@ public class ActuatorRestEndpoint extends ModelServerEndpoint {
   public void doGet(Request req, Response rsp, Context ctx) throws IOException {
     PathSegments segments = PathSegments.fromPath(req.getRequestURI());
     if (PREFIX.equals(segments.getPrefix())) {
-      if ("".equals(segments.getEndpointName())) {
+      if (segments.getEndpointName().isEmpty()) {
         doGetActuator(rsp);
       } else if (endpoints.containsKey(segments.getEndpointName())) {
         endpoints.get(segments.getEndpointName()).doGet(req, rsp, ctx);
       } else {
-        notFoundResponse(req, rsp);
+        NotFoundResponse.notFoundResponse(req, rsp);
       }
     } else {
-      notFoundResponse(req, rsp);
+      NotFoundResponse.notFoundResponse(req, rsp);
     }
   }
 
   private void doGetActuator(Response rsp) throws IOException {
     rsp.setStatus(200);
     rsp.getOutputStream().write("Actuator".getBytes(StandardCharsets.UTF_8));
-  }
-
-  private void notFoundResponse(Request req, Response rsp) throws IOException {
-    rsp.setStatus(404);
-    rsp.getOutputStream()
-        .write(String.format("%s Not found", req.getRequestURI()).getBytes(StandardCharsets.UTF_8));
   }
 }

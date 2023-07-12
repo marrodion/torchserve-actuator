@@ -23,4 +23,15 @@ public class HealthEndpointIntegrationTest extends SetupTestSuite {
             "components.noop.status",
             equalTo("UP"));
   }
+
+  @Test
+  public void testHealthEndpointNoopModel() {
+    RestAssured.given()
+        .spec(getRequestSpec())
+        .when()
+        .get("/health/noop")
+        .then()
+        .statusCode(HttpURLConnection.HTTP_OK)
+        .body("status", equalTo("UP"), "details.size()", equalTo(4));
+  }
 }

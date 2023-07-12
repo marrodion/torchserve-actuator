@@ -24,7 +24,7 @@ public class HealthResponseTest {
   public void testJsonSerializable() {
     HealthStatus healthStatus = HealthStatus.UP;
     HealthResponse healthResponse =
-        new HealthResponse(healthStatus, Map.of("model", ComponentDetails.fromModel(model)));
+        new FullHealthResponse(healthStatus, Map.of("model", ComponentDetails.fromModel(model)));
     var json = new GsonBuilder().create().toJson(healthResponse);
     Assert.assertNotNull(json);
   }

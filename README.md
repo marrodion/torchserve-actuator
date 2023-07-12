@@ -10,6 +10,8 @@ Inspired by [pyctuator](https://github.com/SolarEdgeTech/pyctuator)
 
 - [/actuator/health](https://docs.spring.io/spring-boot/docs/current/actuator-api/htmlsingle/#health)
   - Shows the state of the loaded models and their workers.
+- [/actuator/health/${model_name}](https://docs.spring.io/spring-boot/docs/current/actuator-api/htmlsingle/#health.retrieving-component)
+  - Shows the state of the specific model workers
 - [/actuator/info](https://docs.spring.io/spring-boot/docs/current/actuator-api/htmlsingle/#info)
   - Shows git information, if available, as well as plugin build info.
 

@@ -7,11 +7,11 @@ import org.pytorch.serve.servingsdk.Model;
 
 public class Health {
 
-  public HealthResponse getHealthResponse(Context ctx) {
+  public FullHealthResponse getHealthResponse(Context ctx) {
     var components =
         ctx.getModels().values().stream()
             .collect(Collectors.toMap(Model::getModelName, ComponentDetails::fromModel));
-    return new HealthResponse(getHealth(components), components);
+    return new FullHealthResponse(getHealth(components), components);
   }
 
   private HealthStatus getHealth(Map<String, ComponentDetails> components) {

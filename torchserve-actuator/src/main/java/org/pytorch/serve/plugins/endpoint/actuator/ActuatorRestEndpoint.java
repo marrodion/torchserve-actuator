@@ -28,11 +28,7 @@ public class ActuatorRestEndpoint extends ModelServerEndpoint {
       case "/actuator/health" -> getEndpointByName("health").doGet(req, rsp, ctx);
       case "/actuator/info" -> getEndpointByName("info").doGet(req, rsp, ctx);
       default -> {
-        rsp.setStatus(404);
-        rsp.getOutputStream()
-            .write(
-                String.format("%s Not found", req.getRequestURI())
-                    .getBytes(StandardCharsets.UTF_8));
+        notFoundResponse(req, rsp);
       }
     }
   }
@@ -40,6 +36,14 @@ public class ActuatorRestEndpoint extends ModelServerEndpoint {
   private void doGetActuator(Response rsp) throws IOException {
     rsp.setStatus(200);
     rsp.getOutputStream().write("Actuator".getBytes(StandardCharsets.UTF_8));
+  }
+
+  private void notFoundResponse(Request req, Response rsp) throws IOException {
+    rsp.setStatus(404);
+    rsp.getOutputStream()
+        .write(
+            String.format("%s Not found", req.getRequestURI())
+                .getBytes(StandardCharsets.UTF_8));
   }
 
   private ModelServerEndpoint getEndpointByName(String name) {

@@ -1,5 +1,8 @@
 package org.pytorch.serve.plugins.endpoint.actuator;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Map;
 import org.pytorch.serve.plugins.endpoint.actuator.health.HealthEndpoint;
 import org.pytorch.serve.plugins.endpoint.actuator.info.InfoEndpoint;
 import org.pytorch.serve.servingsdk.Context;
@@ -8,10 +11,6 @@ import org.pytorch.serve.servingsdk.annotations.Endpoint;
 import org.pytorch.serve.servingsdk.annotations.helpers.EndpointTypes;
 import org.pytorch.serve.servingsdk.http.Request;
 import org.pytorch.serve.servingsdk.http.Response;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.Map;
 
 @Endpoint(
     urlPattern = "actuator",
@@ -24,7 +23,7 @@ public class ActuatorRestEndpoint extends ModelServerEndpoint {
 
   @Override
   public void doGet(Request req, Response rsp, Context ctx) throws IOException {
-    PathSegments segments = new PathSegments(req.getRequestURI());
+    PathSegments segments = PathSegments.fromPath(req.getRequestURI());
     if (PREFIX.equals(segments.getPrefix())) {
       if ("".equals(segments.getEndpointName())) {
         doGetActuator(rsp);
@@ -46,8 +45,6 @@ public class ActuatorRestEndpoint extends ModelServerEndpoint {
   private void notFoundResponse(Request req, Response rsp) throws IOException {
     rsp.setStatus(404);
     rsp.getOutputStream()
-        .write(
-            String.format("%s Not found", req.getRequestURI())
-                .getBytes(StandardCharsets.UTF_8));
+        .write(String.format("%s Not found", req.getRequestURI()).getBytes(StandardCharsets.UTF_8));
   }
 }

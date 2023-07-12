@@ -1,10 +1,8 @@
 package org.pytorch.serve.plugins.endpoint.actuator;
 
-import org.testng.annotations.Test;
-
-import java.nio.file.Path;
-
 import static org.testng.Assert.*;
+
+import org.testng.annotations.Test;
 
 public class PathSegmentsTest {
   @Test

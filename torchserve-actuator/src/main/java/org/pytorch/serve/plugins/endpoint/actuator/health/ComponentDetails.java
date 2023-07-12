@@ -2,8 +2,7 @@ package org.pytorch.serve.plugins.endpoint.actuator.health;
 
 import org.pytorch.serve.servingsdk.Model;
 
-public final class ComponentDetails {
-  private final HealthStatus status;
+public final class ComponentDetails extends HealthResponse {
   private final ModelDetails details;
 
   private ComponentDetails(HealthStatus status, ModelDetails details) {
@@ -18,10 +17,6 @@ public final class ComponentDetails {
             ? HealthStatus.UP
             : HealthStatus.DOWN;
     return new ComponentDetails(status, modelDetails);
-  }
-
-  public HealthStatus getStatus() {
-    return status;
   }
 
   public ModelDetails getDetails() {

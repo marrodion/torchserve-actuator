@@ -1,6 +1,6 @@
 package org.pytorch.serve.plugins.endpoint.actuator;
 
-public class PathSegments {
+public final class PathSegments {
   private static final String SEPARATOR = "/";
   private final String prefix;
   private final String endpointName;
